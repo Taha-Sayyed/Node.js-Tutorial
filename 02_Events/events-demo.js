@@ -27,6 +27,16 @@ eventEmitter.emit("greet","Taha Sayyed");
 eventEmitter.on("greet",mylistener2)//multi-callable event
 eventEmitter.emit("greet","Taha Sayyed");
 
+// Creating a event that can be called only once
+const mylistener3=function(){
+    console.log(`This event can be call only once`);
+    
+}
+
+eventEmitter.once("demoEvent",mylistener3);
+eventEmitter.emit("demoEvent")
+eventEmitter.emit("demoEvent")//Single callable
+
 //total listener on event "greet"
 console.log(eventEmitter.listeners('greet'));
 
