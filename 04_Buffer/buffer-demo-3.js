@@ -6,3 +6,4 @@ console.log(buf);//<Buffer 62 75 66 66 65 72>
 console.log(buf.toString());//buffer
 
 
+
