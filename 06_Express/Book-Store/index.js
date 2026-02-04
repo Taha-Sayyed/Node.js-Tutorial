@@ -1,5 +1,5 @@
-const express=require('express');
-const app=express();
+const express=require('express');//This function is often called createApplication internally
+const app=express();//calling createApplication function that returns application Object
 const PORT=8000;
 
 //In-memory Database
@@ -19,7 +19,7 @@ app.get('/books',(req,res)=>{
         'x-author':'myserver'
     })//Use Express module to set Headers
     res.json(books);
-})
+});
 
 app.get('/books/:id',(req,res)=>{
     const id=parseInt(req.params.id);
@@ -38,7 +38,8 @@ app.get('/books/:id',(req,res)=>{
     }
 });
 
-app.post('/books',(req,res)=>{
+app.post('/books',(req,res)=>{    
+    // console.log(typeof req.body);//Object
     
     const {title,author}=req.body;
 
@@ -53,6 +54,21 @@ app.post('/books',(req,res)=>{
     books.push(book);
     return res.status(201).json({message:`This route is under Dev`})
 });
+
+app.delete('/books/:id',(req,res)=>{
+    const id=parseInt(req.params.id);
+    if(isNaN(id)){
+        return res.status(400).json({error:`Bad request`});
+    }
+    const indexBook=books.findIndex((e)=>{
+        e.id===id;
+    });
+    if(!indexBook){
+        return res.status(400).json({error:`Cannot find the book with id:${id}`})
+    }
+    books.splice(indexBook,1);
+    return res.status(200).json({message:`Book with id:${id} is deleted`})
+})
 
 app.listen(PORT,()=>{
     console.log(`HTTP server is running on PORT ${PORT}`);
