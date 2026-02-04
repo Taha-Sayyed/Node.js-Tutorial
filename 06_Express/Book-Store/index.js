@@ -1,3 +1,4 @@
+const fs=require('node:fs');
 const express=require('express');//This function is often called createApplication internally
 const app=express();//calling createApplication function that returns application Object
 const PORT=8000;
@@ -11,6 +12,12 @@ const books=[
 // Middlewares {Plugins}
 app.use(express.json());
 
+//Middleware {Custom}
+app.use(function(req,res,next){
+    const log=`\n[${Date.now()}] ${req.method} ${req.path}`;
+    fs.appendFileSync('log.txt',log,'utf8');
+    next();
+})
 
 //Routes
 app.get('/books',(req,res)=>{
