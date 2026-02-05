@@ -6,6 +6,7 @@ const PORT=8000;
 
 // Middlewares {Plugins}
 app.use(express.json());
+//Middleware {Custom}
 app.use(loggerMiddleware);
 
 //Routes
