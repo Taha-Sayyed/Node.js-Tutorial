@@ -1,4 +1,5 @@
 const {authorsTable}=require('../models/author.model');
+const {booksTable}=require('../models/book.model');
 const db=require('../db');
 const {eq}=require("drizzle-orm");
 const { error } = require('node:console');
@@ -25,4 +26,10 @@ exports.createAuthor=async function(req,res){
         email,
     }).returning({id:authorsTable.id});
     return res.json({message:`Author has been created. Id is ${result.id}`});
+}
+
+exports.getAllBooksByAuthor=async function(req,res){
+    const id=req.params.id;
+    const books=await db.select().from(booksTable).where(eq(booksTable.authorId,id));
+    return res.json(books);
 }
