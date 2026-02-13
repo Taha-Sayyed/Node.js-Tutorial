@@ -73,3 +73,16 @@ exports.CurrentUser=function(req,res){
     }
     return res.json({user});
 }
+
+exports.updateUserName=async function(req,res){
+    const user=req.user;
+
+    if(!user){
+        return res.status(401).json({error:`You are not logged In`});
+    }
+
+    const {name}=req.body;
+    const result=await db.update(userTable).set({name}).where(eq(userTable.id,user.userId));
+
+    return res.json({status:`Success`});
+}
