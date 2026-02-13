@@ -1,0 +1,22 @@
+require('dotenv/config');
+const express=require('express');
+const app=express();
+const signUpRouter=require('./routes/signup.route');
+const loginRouter=require('./routes/login.routes');
+const userRouter=require('./routes/currentUser.route');
+const {sessionMiddleware}=require('./middleware/sessionMiddleware');
+
+
+//Middleware
+app.use(express.json());
+app.use(sessionMiddleware)
+
+//Routes
+app.use('/user/signup',signUpRouter);
+app.use('/user/login',loginRouter);
+app.use('/',userRouter);
+
+
+app.listen(8000,()=>{
+    console.log('Server is listening on port 8000');
+})
