@@ -14,7 +14,7 @@ app.use(sessionMiddleware)
 //Routes
 app.use('/user/signup',signUpRouter);
 app.use('/user/login',loginRouter);
-app.use('/',userRouter);
+app.use('/user',userRouter);
 
 
 app.listen(8000,()=>{
