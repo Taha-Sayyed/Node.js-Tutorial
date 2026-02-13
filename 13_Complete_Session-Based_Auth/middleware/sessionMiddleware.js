@@ -6,9 +6,7 @@ const {eq}=require("drizzle-orm");
 
 exports.sessionMiddleware=async function(req,res,next){
     const sessionId=req.headers['session-id'];
-    if(!sessionId){
-        console.log(`Session id not found`);
-        
+    if(!sessionId){        
         return next();
     }
 
